@@ -6,9 +6,7 @@ import plotly.express as px
 import openai
 
 
-def open_file(filepath):
-    with open(filepath, 'r', encoding='utf-8') as infile:
-        return infile.read()
+new = ""
 
 
 openai.api_key = "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"
@@ -34,7 +32,7 @@ news = [
         "title": "Adani shares slip, Group m-cap falls by Rs 49,400 cr",
         "url": "https://economictimes.indiatimes.com/markets/stocks/news/adani-shares-slip-group-m-cap-falls-by-rs-49400-cr/articleshow/99074180.cms",
         "date": "March 29, 2023",
-        "status": "Negatiive"
+        "status": "Negative"
     },
     {
         "title": "Adani Repays $500 Million Bridge Loan to Regain Investor Faith",
@@ -60,7 +58,7 @@ def load_view():
 
     col, _ = st.columns((10, 1))
 
-    for j, i in enumerate(""):
+    for j, i in enumerate(new):
         prompt_ = f"Give me in answer word [positive/negative] if the following news in positive or negative: {i['title']}"
         response_ = gpt3_completion(prompt_)
         news[j]['status'] = response_.split(' ')[-1].capitalize()
