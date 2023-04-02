@@ -173,5 +173,27 @@ def load_view():
             )
             fig.update_yaxes(title="Price")
             st.write(fig2)
+
+        
+    col1, col2, _ = st.columns((3, 10, 3))
+    with col2:
+        st.title("Adani Vs Other Similar Companies")
+        st.markdown('<br>', unsafe_allow_html=True)
+
+    _, col1, col2, __ = st.columns((1, 2, 10, 1))
+    with col1:
+
+        st.metric("Adani", "42%", "-8%")
+        st.metric("Reliance", "74%", "6%")
+        st.metric("Tata", "86%", "4%")
+
+    with col2:
+        chart_data = pd.DataFrame(
+            np.random.randn(20, 3),
+            columns=['Adani', 'Tata', 'Reliance'])
+
+        st.markdown('<br>', unsafe_allow_html=True)
+        st.line_chart(chart_data)
+
         
         

@@ -68,8 +68,8 @@ def navigation():
     elif route == "EDA":
         EDA.load_view()
     elif route == "AutoMlRegressionApp":
-        # AutoMlRegressionApp.load_view()
-        pass
+        AutoMlRegressionApp.load_view()
+        # pass
     elif route == "AutoMlClassificationApp":
         AutoMlClassificationApp.load_view()
     elif route == "report":

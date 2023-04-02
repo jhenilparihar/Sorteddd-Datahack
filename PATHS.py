@@ -1,10 +1,10 @@
 NAVBAR_PATHS = {
     'OPENAI GRAPHS': 'EDA',
     'OPENAI': 'AutoMlClassificationApp',
-    'Camparision': 'AutoMlRegressionApp',
-    'News Effects': 'news',
-    'Hindenbureg Report': 'report',
-    'Analysis': 'TheMachineLearningHyperparameterOptimizationApp',
+    'COMPARISION': 'AutoMlRegressionApp',
+    'NEWS EFFECTS': 'news',
+    'HINDENBURG REPORT': 'report',
+    'ANALYSIS': 'TheMachineLearningHyperparameterOptimizationApp',
     'HOME': 'home',
 }
 
