@@ -1,10 +1,10 @@
 NAVBAR_PATHS = {
-    'ADANI': 'TheMachineLearningHyperparameterOptimizationApp',
+    'OPENAI GRAPHS': 'EDA',
     'OPENAI': 'AutoMlClassificationApp',
-    'RELIANCE': 'AutoMlRegressionApp',
+    'Camparision': 'AutoMlRegressionApp',
     'News Effects': 'news',
-    'EDA': 'EDA',
     'Hindenbureg Report': 'report',
+    'Analysis': 'TheMachineLearningHyperparameterOptimizationApp',
     'HOME': 'home',
 }
 
