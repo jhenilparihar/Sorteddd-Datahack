@@ -8,7 +8,7 @@ import pandas as pd
 # Uses st.cache_resource to only run once.
 
 
-# st.set_page_config(layout="wide", page_title='SnowLit.AI')
+st.set_page_config(layout="wide", page_title='SnowLit.AI')
 # st.set_option('deprecation.showPyplotGlobalUse', False)
 import json
 import requests
