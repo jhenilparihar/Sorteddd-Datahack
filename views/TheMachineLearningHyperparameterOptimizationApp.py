@@ -23,10 +23,7 @@ import pylab
 # To build ML models
 # from fbprophet import Prophet
 from matplotlib import pyplot as plt
-import pandas.util.testing as tm
-from pmdarima import auto_arima
-from sklearn.metrics import mean_absolute_error, mean_squared_error
-import lightgbm as lgb
+
 import numpy as np
 # from main import df,run_query
 # st.set_page_config(
