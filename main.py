@@ -1,3 +1,9 @@
+import time
+from streamlit_lottie import st_lottie_spinner
+from streamlit_lottie import st_lottie
+from PIL import Image
+import requests
+import json
 import streamlit as st
 import utils as utl
 from views import EDA, home, AutoMlRegressionApp, AutoMlClassificationApp, TheMachineLearningHyperparameterOptimizationApp, report, strappopenai, news
@@ -10,12 +16,6 @@ import pandas as pd
 
 st.set_page_config(layout="wide", page_title='SnowLit.AI')
 # st.set_option('deprecation.showPyplotGlobalUse', False)
-import json
-import requests
-from PIL import Image
-from streamlit_lottie import st_lottie
-from streamlit_lottie import st_lottie_spinner
-import time
 
 
 @st.cache_resource
@@ -68,7 +68,8 @@ def navigation():
     elif route == "EDA":
         EDA.load_view()
     elif route == "AutoMlRegressionApp":
-        AutoMlRegressionApp.load_view()
+        # AutoMlRegressionApp.load_view()
+        pass
     elif route == "AutoMlClassificationApp":
         AutoMlClassificationApp.load_view()
     elif route == "report":
