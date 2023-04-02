@@ -43,7 +43,7 @@ def load_view():
     with col2:
         original_title = '''<div style="background-color: #CAF0F8; padding: 20px;padding-bottom: 40px; border-radius: 30px">
                             <h3>Abstract</h3>
-                            <p> Financials refer to an organization’s various financial aspects, including accounting, investing, budgeting, and financial reporting. These crucial elements disclose a company’s monetary health and position. Key components such as balance sheets, income statements, and cash flow statements serve as primary indicators of financial performance, assisting stakeholders in understanding a company’s profitability, liquidity, and efficiency. Proper financial management enables organizations to make informed decisions, allocate resources effectively, and ensure sustainable growth and long-term stability.</p>
+                            <p> Financials refer to an organization’s various financial aspects, including accounting, investing, budgeting, and financial reporting. These crucial elements disclose a company’s monetary health and position. <br><br>Key components such as balance sheets, income statements, and cash flow statements serve as primary indicators of financial performance, assisting stakeholders in understanding a company’s profitability, liquidity, and efficiency. <br><br>Proper financial management enables organizations to make informed decisions, allocate resources effectively, and ensure sustainable growth and long-term stability.</p>
                             </div>
                             '''
         st.markdown(original_title, unsafe_allow_html=True)
