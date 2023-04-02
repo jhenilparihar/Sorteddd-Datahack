@@ -41,10 +41,9 @@ def load_view():
         st.image("https://cdn.dribbble.com/users/1523313/screenshots/13671653/media/7c52f9d4b1117aa12f3bf9f9c3b9e1aa.gif",
                  caption="Representation of Oil Extraction from Rig Wells")
     with col2:
-        original_title = '''<div style="background-color: #7f7f7f3b; padding: 20px;padding-bottom: 40px; border-radius: 30px">
+        original_title = '''<div style="background-color: #CAF0F8; padding: 20px;padding-bottom: 40px; border-radius: 30px">
                             <h3>Abstract</h3>
-                            <p> • Facies classification is one of the most important tasks that geoscientists work on development and exploration projects.</p>
-                            <p> • New Ways of cutting operations cost , enhancing efficiency and increasing out-turn for oil and gas companies to identify the region in which they must drill where chances of extraction of oil are much higher.</p>
+                            <p> Financials refer to an organization’s various financial aspects, including accounting, investing, budgeting, and financial reporting. These crucial elements disclose a company’s monetary health and position. Key components such as balance sheets, income statements, and cash flow statements serve as primary indicators of financial performance, assisting stakeholders in understanding a company’s profitability, liquidity, and efficiency. Proper financial management enables organizations to make informed decisions, allocate resources effectively, and ensure sustainable growth and long-term stability.</p>
                             </div>
                             '''
         st.markdown(original_title, unsafe_allow_html=True)

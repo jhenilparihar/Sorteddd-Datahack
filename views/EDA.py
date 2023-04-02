@@ -1,160 +1,105 @@
+# Import streamlit and other libraries
 import streamlit as st
-import os 
-# The OS module in Python provides functions for interacting with the operating system. 
-import streamlit as st
-# EDA packages : Exploitary data analysis
 import pandas as pd
-# Viz packages : Visualization packages
+import numpy as np
+import altair as alt
 import matplotlib.pyplot as plt
-import matplotlib
-matplotlib.use('Agg') # To help us to prevent erros while trying to plot
-# The canonical renderer for user interfaces is Agg which uses the Anti-Grain Geometry C++ library to make a raster (pixel) image of the figure.
-# Like in tiknter it is matplotlib.use('TkAgg')
-import seaborn as sns
 
 def load_view():
-    st.set_option('deprecation.showPyplotGlobalUse', False)
-    """EDA toolkit"""
-    st.title("Exploratory Data Analysis")
-    st.subheader("Simple Data Science Explorer with Streamlit")
-    
-    st.markdown("""
-    <style>
-      section[data-testid="stSidebar"][aria-expanded="true"]{
-        padding-top: 50px !important;
-      }
-      section[data-testid="stSidebar"][aria-expanded="false"]{
-        padding-top: 50px !important;
-      }
-    </style>""", unsafe_allow_html=True)
+    # st.set_page_config(layout="wide")
 
-    with st.sidebar.header('1. Upload your CSV data'):
-        uploaded_file = st.sidebar.file_uploader("Upload your input CSV file", type=["csv"])
-    # def file_selector(folder_path='./apps/datasets'): # current
-    #     filenames=os.listdir(folder_path)
-    #     selected_filename = st.selectbox("Select A file",filenames)
-    #     return os.path.join(folder_path,selected_filename)
-   
-    filename = uploaded_file
-    st.info("You Selected {}".format(filename))
-  
-    # Read Data
-    if uploaded_file is not None:
-        df = pd.read_csv(filename)
-        st.markdown("Glimpse of dataset")
-    else:
-        # st.write("Awaiting")
-        pass
-
-    # Show Dataset
-    if st.checkbox("Show Dataset"):
-        number = st.number_input("Number of Rows to View",0,1000) #Upper limit and lower limit can be set.
-        st.dataframe(df.head(number)) # The head() function is used to get the first n rows.
-
-    
-    # Show columns
-    if st.button("Column Names"):
-        st.write(df.columns)
-
-    
-    # Show Size
-    if st.checkbox("Size of Dataset"):
-        data_dim = st.radio("Show Dimension By",("Rows","Columns"))
-        if data_dim == 'Rows':
-            st.text("Number of Rows")
-            st.write(df.shape[0]) #Pandas
-        elif data_dim == 'Columns':
-            st.text("Number of Columns")
-            st.write(df.shape[1]) # Pandas
-        else:
-            st.write(df.shape) 
-
-      
-    # Select Columns
-    if st.checkbox("Select Columns To Show:"):
-        all_columns = df.columns.tolist() #tolist(), used to convert the data elements of an array into a list.
-        selected_columns = st.multiselect("Select",all_columns)
-        new_df = df[selected_columns]
-        st.dataframe(new_df)
+    # Set the title of the app
+    st.title("OpenAI Graphs")
 
 
-    # Show Values
-    if st.button("Value Counts"):
-        st.text("Value Counts By Target/Class")
-        st.write(df.iloc[:,-1].value_counts()) #value_counts() function returns object containing counts of unique values. The resulting object will be in descending order so that the first element is the most frequently-occurring element. Excludes NA values by default.
-    #Python iloc() function enables us to select a particular cell of the dataset, that is, it helps us select a value that belongs to a particular row or column from a set of values of a data frame or dataset.
+    # Create a sidebar for selecting the graph type
+    graph_type = st.sidebar.selectbox("Select a graph type", ["Bar chart", "Line chart", "Scatter plot", "Radar chart"])
 
+    # Create some dummy data for the graphs
+    gpt_data = pd.DataFrame({
+        "model": ["GPT-1", "GPT-2", "GPT-3", "GPT-3.5", "GPT-4"],
+        "parameters": [117, 1542, 175, 350, 700]
+    })
 
-    # Show Summary
-    if st.checkbox("Summary"):
-        st.write(df.describe().T) # Pandas describe() is used to view some basic statistical details like percentile, mean, std etc.
+    customer_data = pd.DataFrame({
+        "industry": ["Education", "Health care", "Finance", "Entertainment", "Gaming", "E-commerce", "Social media", "Other"],
+        "customers": [15, 12, 10, 8, 7, 6, 5, 4]
+    })
 
+    revenue_data = pd.DataFrame({
+        "year": [2015, 2016, 2017, 2018, 2019, 2020, 2021],
+        "revenue": [0.5, 1.2, 2.5, 4.0, 6.5, 8.0, 10.0],
+        "donations": [1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0]
+    })
 
-    ## Plot And Visualization
-    st.subheader("Data Visualization")
-    # Correlation Plot
-    # Seaborn 
-     
-    if st.checkbox("Correlation Plot[Seaborn]"):
-        st.write(sns.heatmap(df.corr(),annot=True)) #Python seaborn has the power to show a heat map using its special function sns.heatmap().
-        # If True, write the data value in each cell
-        st.pyplot() #pyplot is a collection of functions that make matplotlib work like MATLAB.
+    quality_data = pd.DataFrame({
+        "model": ["GPT-1", "GPT-2", "GPT-3", "GPT-3.5", "GPT-4"],
+        "quality": [0.6, 0.7, 0.8, 0.85, 0.9],
+        "diversity": [0.4, 0.5, 0.6, 0.65, 0.7]
+    })
 
-    # Count Plot
+    rating_data = pd.DataFrame({
+        "stakeholder": ["Researchers", "Developers", "Customers", "Media", "Policymakers", "Public"],
+        "rating": [4.5, 4.2, 4.0, 3.8, 3.5, 3.2]
+    })
 
-    if st.checkbox("Plot Of Value Counts"):
-        st.text("Value Counts By Targe")
-        all_columns_names = df.columns.tolist()
-        primary_col = st.selectbox("Primary column to GroupBy",all_columns_names)
-        selected_columns_names = st.multiselect("Select Columns",all_columns_names)
-        if st.button("Plot"):
-            st.text("Generate Plot")
-            if selected_columns_names:
-                vc_plot = df.groupby(primary_col)[selected_columns_names].count()
-            else:
-                vc_plot = df.iloc[:,-1].value_counts()
-            st.write(vc_plot.plot(kind="bar"))
-            st.pyplot()
-
-    # Pie Chart
-
-    if st.checkbox("Pie Plot"):
-        all_columns_names = df.columns.tolist()
-        if st.button("Generate Pie Plot"):
-            st.success("Generating A pie Plot")
-            st.write(df.iloc[:,-1].value_counts().plot.pie(autopct="%1.1f%%")) #autopct enables you to display the percent value using Python string formatting.
-            st.pyplot()
-
-    # if st.checkbox("Show PowerBi"):
-    #     st.markdown('<iframe title="adanient" width="600" height="373.5" src="https://app.powerbi.com/view?r=eyJrIjoiYzMwNzE2MzMtNWQ0ZS00MjMxLWIyZmEtY2Q4OTExYjMyMDA2IiwidCI6ImQxZjE0MzQ4LWYxYjUtNGEwOS1hYzk5LTdlYmYyMTNjYmM4MSIsImMiOjEwfQ%3D%3D" frameborder="0" allowFullScreen="true"></iframe>', unsafe_allow_html= True)
-
-    # Customizable Plot
-    if st.checkbox("Customize Plot"):
-        st.subheader('Customizable Plot')
-        all_columns_names = df.columns.tolist()
-        type_of_plots = st.selectbox('Select Type of Plot',["area","bar","line","hist","box","kde"])
-        selected_columns_names = st.multiselect("Select columns to plot",all_columns_names)
-
-
-    if st.button("Generate Plot"):
-        st.success("Generating Customizable Plot {} for {}".format(type_of_plots,selected_columns_names))
+    # Define a function to create a radar chart
+    def radar_chart(data):
+        # Calculate the angle for each variable
+        angle = np.linspace(0 ,2 * np.pi , len(data), endpoint=False)
         
-        # Plot By Streamlit
-        if type_of_plots == 'area':
-            cust_data = df[selected_columns_names]
-            st.area_chart(cust_data)
-        elif type_of_plots == 'bar':
-            cust_data = df[selected_columns_names]
-            st.bar_chart(cust_data)
-        elif type_of_plots == 'line':
-            cust_data = df[selected_columns_names]
-            st.line_chart(cust_data)
-        # Custom By 
-        elif type_of_plots:
-            cust_plot = df[selected_columns_names].plot(kind=type_of_plots)
-            st.write(cust_plot)
-            st.pyplot()
+        # Repeat the first value to close the circle
+        values = data["rating"]
 
-# if __name__ == “main”: is used to execute some code only if the file was run directly, and not imported.
-# if __name__ == '__main__':
-#     main()
+        # Initialize a plot
+        fig = plt.figure(figsize=(4 ,4)) # Change the figsize here
+
+        # Add axes
+        ax = fig.add_subplot(111 , polar=True)
+
+        # Plot the values
+        ax.plot(angle , values , color="blue" , linewidth=2)
+
+        # Fill the area
+        ax.fill(angle , values , color="blue" , alpha=0.25)
+
+        # Set the labels
+        ax.set_xticks(angle)
+        ax.set_xticklabels(data["stakeholder"])
+
+        # Set the title and show the plot
+        plt.title("Stakeholder Ratings")
+
+        return fig
+
+    # Display the graph based on the selected type
+    if graph_type == "Bar chart":
+        st.write("A bar chart that shows the number of parameters of different versions of GPT models")
+        st.altair_chart(alt.Chart(gpt_data).mark_bar().encode(
+            x="model",
+            y="parameters"
+        ).properties(
+            width=600 # adjust this value as needed
+        ))
+    elif graph_type == "Line chart":
+        st.write("A line chart that shows the trend of OpenAI's revenue and donations over time")
+        st.altair_chart(alt.Chart(revenue_data).mark_line().encode(
+            x="year",
+            y=alt.Y("revenue", axis=alt.Axis(title="Revenue (in millions)")),
+            color=alt.value("green")
+        ) + alt.Chart(revenue_data).mark_line().encode(
+            x="year",
+            y=alt.Y("donations", axis=alt.Axis(title="Donations (in millions)")),
+            color=alt.value("blue")
+        ))
+    elif graph_type == "Scatter plot":
+        st.write("A scatter plot that shows the relationship between the text generation quality and diversity of different versions of GPT models")
+        st.altair_chart(alt.Chart(quality_data).mark_circle(size=60).encode(
+            x="quality",
+            y="diversity",
+            color="model",
+            tooltip=["model", "quality", "diversity"]
+        ).interactive())
+    elif graph_type == "Radar chart":
+        st.write("A radar chart that shows the ratings of OpenAI's reputation by different stakeholders")
+        st.pyplot(radar_chart(rating_data))
