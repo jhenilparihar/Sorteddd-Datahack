@@ -33,17 +33,20 @@ news = [
     {
         "title": "Adani shares slip, Group m-cap falls by Rs 49,400 cr",
         "url": "https://economictimes.indiatimes.com/markets/stocks/news/adani-shares-slip-group-m-cap-falls-by-rs-49400-cr/articleshow/99074180.cms",
-        "date": "March 29, 2023"
+        "date": "March 29, 2023",
+        "status": "Negatiive"
     },
     {
         "title": "Adani Repays $500 Million Bridge Loan to Regain Investor Faith",
         "url": "https://www.bloomberg.com/news/articles/2023-03-08/adani-repays-500-million-bridge-loan-to-regain-investor-faith",
         "date": "March 8, 2023",
+        "status": "Positive"
     },
     {
         "title": "Adani Enterprises stock exits NSE’s additional security framework after a month",
         "url": "https://www.financialexpress.com/market/adani-enterprises-exits-nses-additional-security-framework-after-a-month/3001534/",
         "date": "March 7, 2023",
+        "status": "Negative"
     }
 ]
 
@@ -57,7 +60,7 @@ def load_view():
 
     col, _ = st.columns((10, 1))
 
-    for j, i in enumerate(news):
+    for j, i in enumerate(""):
         prompt_ = f"Give me in answer word [positive/negative] if the following news in positive or negative: {i['title']}"
         response_ = gpt3_completion(prompt_)
         news[j]['status'] = response_.split(' ')[-1].capitalize()
