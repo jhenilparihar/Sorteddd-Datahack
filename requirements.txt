@@ -26,3 +26,5 @@ plotly==5.14.0
 streamlit-echarts==0.4.0
 streamlit-option-menu==0.3.2
 streamlit-lottie==0.0.3
+tensorflow==2.12.0
+yfinance==0.2.14
