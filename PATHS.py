@@ -3,7 +3,7 @@ NAVBAR_PATHS = {
     'OPENAI': 'AutoMlClassificationApp',
     'COMPARISION': 'AutoMlRegressionApp',
     'NEWS EFFECTS': 'news',
-    'HINDENBUREG REPORT': 'report',
+    'HINDENBURG REPORT': 'report',
     'ANALYSIS': 'TheMachineLearningHyperparameterOptimizationApp',
     'HOME': 'home',
 }
