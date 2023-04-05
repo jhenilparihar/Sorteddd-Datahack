@@ -6,12 +6,10 @@ import plotly.express as px
 import openai
 
 
-def open_file(filepath):
-    with open(filepath, 'r', encoding='utf-8') as infile:
-        return infile.read()
+new = ""
 
 
-openai.api_key = "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"
+openai.api_key = "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"
 
 
 def gpt3_completion(prompt, engine='text-davinci-002', temp=0.7, top_p=1.0, tokens=400, freq_pen=0.0, pres_pen=0.0, stop=['<<END>>']):
@@ -33,17 +31,20 @@ news = [
     {
         "title": "Adani shares slip, Group m-cap falls by Rs 49,400 cr",
         "url": "https://economictimes.indiatimes.com/markets/stocks/news/adani-shares-slip-group-m-cap-falls-by-rs-49400-cr/articleshow/99074180.cms",
-        "date": "March 29, 2023"
+        "date": "March 29, 2023",
+        "status": "Negative"
     },
     {
         "title": "Adani Repays $500 Million Bridge Loan to Regain Investor Faith",
         "url": "https://www.bloomberg.com/news/articles/2023-03-08/adani-repays-500-million-bridge-loan-to-regain-investor-faith",
         "date": "March 8, 2023",
+        "status": "Positive"
     },
     {
         "title": "Adani Enterprises stock exits NSE’s additional security framework after a month",
         "url": "https://www.financialexpress.com/market/adani-enterprises-exits-nses-additional-security-framework-after-a-month/3001534/",
         "date": "March 7, 2023",
+        "status": "Negative"
     }
 ]
 
@@ -57,10 +58,10 @@ def load_view():
 
     col, _ = st.columns((10, 1))
 
-    for j, i in enumerate(news):
+    for j, i in enumerate(new):
         prompt_ = f"Give me in answer word [positive/negative] if the following news in positive or negative: {i['title']}"
         response_ = gpt3_completion(prompt_)
-        news[j]['status'] = response_.split(' ')[-1]
+        news[j]['status'] = response_.split(' ')[-1].capitalize()
 
     for i in news:
 
@@ -69,7 +70,7 @@ def load_view():
             st.markdown(
                 f"[Check full story]({i['url']})")
             st.markdown(f"<h5>Date: {i['date']}</h5>", unsafe_allow_html=True)
-            st.markdown(f"<p>Tone: {i['status']}</p>", unsafe_allow_html=True)
+            st.markdown(f"<h4>{i['status']}</h4>", unsafe_allow_html=True)
             df = px.data.gapminder()
 
             fig = px.scatter(
